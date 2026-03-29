@@ -1,0 +1,36 @@
+#include<iostream>
+using namespace std;
+
+int main() {
+    int numCourses;
+    cout << "Enter number of courses: ";
+    cin >> numCourses;
+
+    float grades[10], credits[10];
+    float totalPoints = 0, totalCredits = 0;
+
+    for(int i = 0; i < numCourses; i++) {
+        cout << "\nCourse " << i+1 << ":" << endl;
+        cout << "  Enter grade (0-4): ";
+        cin >> grades[i];
+        cout << "  Enter credit hours: ";
+        cin >> credits[i];
+
+        totalPoints  += grades[i] * credits[i];
+        totalCredits += credits[i];
+    }
+
+    float gpa = totalPoints / totalCredits;
+
+    cout << "\n====== Result ======" << endl;
+    for(int i = 0; i < numCourses; i++) {
+        cout << "Course " << i+1 << " - Grade: " << grades[i]
+             << "  Credits: " << credits[i] << endl;
+    }
+
+    cout << "\nTotal Credit Hours: " << totalCredits << endl;
+    cout << "GPA / CGPA: " << gpa << endl;
+
+	
+    return 0;
+}
