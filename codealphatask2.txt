@@ -39,7 +39,7 @@ void registerUser() {
     file << password << endl;
     file.close();
 
-    cout << "Registration successful! Welcome " << username << endl;
+    cout << "Registration successful! WELCOME " << username << endl;
 }
 
 void loginUser() {
