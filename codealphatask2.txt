@@ -1,0 +1,102 @@
+#include<iostream>
+#include<fstream>
+#include<string>
+
+using namespace std;
+
+bool userExists(string username) {
+    ifstream file(username + ".txt");
+    return file.good();
+}
+
+void registerUser() {
+    string username, password;
+
+    cout << "\nRegistration" << endl;
+    cout << "Enter username: ";
+    cin >> username;
+
+    if(userExists(username)) {
+        cout << "Username already taken. Try another." << endl;
+        return;
+    }
+
+    if(username.length() < 3) {
+        cout << "Username must be at least 3 characters." << endl;
+        return;
+    }
+
+    cout << "Enter password: ";
+    cin >> password;
+
+    if(password.length() < 5) {
+        cout << "Password must be at least 5 characters." << endl;
+        return;
+    }
+
+    ofstream file(username + ".txt");
+    file << username << endl;
+    file << password << endl;
+    file.close();
+
+    cout << "Registration successful! Welcome " << username << endl;
+}
+
+void loginUser() {
+    string username, password;
+    string storedUsername, storedPassword;
+
+    cout << "\nLogin" << endl;
+    cout << "Enter username: ";
+    cin >> username;
+
+    if(!userExists(username)) {
+        cout << "Username not found. Please register first." << endl;
+        return;
+    }
+
+    cout << "Enter password: ";
+    cin >> password;
+
+    ifstream file(username + ".txt");
+    getline(file, storedUsername);
+    getline(file, storedPassword);
+    file.close();
+
+    if(password == storedPassword) {
+        cout << "Login successful! Welcome back " << username << endl;
+    } else {
+        cout << "Incorrect password. Try again." << endl;
+    }
+}
+
+int main() {
+    int choice;
+
+    cout << " Login and Registration System " << endl;
+
+    do {
+        cout << "\n1. Register" << endl;
+        cout << "2. Login" << endl;
+        cout << "3. Exit" << endl;
+        cout << "Enter choice: ";
+        cin >> choice;
+
+        switch(choice) {
+            case 1:
+                registerUser();
+                break;
+            case 2:
+                loginUser();
+                break;
+            case 3:
+                cout << "Goodbye!" << endl;
+                break;
+            default:
+                cout << "Invalid choice." << endl;
+        }
+
+    } while(choice != 3);
+
+    return 0;
+}
